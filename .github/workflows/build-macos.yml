@@ -22,3 +22,11 @@ jobs:
 
       - name: install
         run: cmake --install build
+
+      - name: 'upload artifact (MacOS)'
+        if: runner.os == 'MacOS'
+        uses: actions/upload-artifact@v2
+        with:
+          name: ClapWorkbenchSDK (MacOS)
+          path: build/_install
+          if-no-files-found: error
