@@ -1,0 +1,21 @@
+name: mac
+
+on:
+  push:
+    branches: [ main, dev ]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: configure
+        run: cmake . -B build -GNinja -DCMAKE_BUILD_TYPE=Release 
+      
+      - name: build
+        run: cmake --build build
+
+      - name: install
+        run: cmake --install build
