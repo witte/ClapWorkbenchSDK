@@ -9,7 +9,7 @@ jobs:
     runs-on: macos-latest
     
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: setup dependencies
         run: brew install ninja
@@ -25,7 +25,7 @@ jobs:
 
       - name: 'upload artifact (MacOS)'
         if: runner.os == 'MacOS'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: ClapWorkbenchSDK (MacOS)
           path: build/_install

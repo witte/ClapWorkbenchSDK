@@ -51,10 +51,6 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(clap-helpers)
 
 
-
-return()
-
-
 FetchContent_Declare(
    Qt6
    URL      https://download.qt.io/official_releases/qt/6.7/6.7.2/single/qt-everywhere-src-6.7.2.tar.xz
