@@ -18,7 +18,7 @@ jobs:
         run: cmake . -B build -GNinja -DCMAKE_BUILD_TYPE=Release 
       
       - name: build
-        run: cmake --build build
+        run: cmake --build build --parallel
 
       - name: install
         run: cmake --install build

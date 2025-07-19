@@ -14,8 +14,8 @@ set(RTAUDIO_TARGETNAME_UNINSTALL "rtaudio-uninstall")
 set(RTAUDIO_BUILD_TESTING OFF)
 FetchContent_Declare(
     RtAudio
-    GIT_REPOSITORY https://github.com/witte/rtaudio.git
-    GIT_TAG        fix-FetchContent  # Version 6.0.1 with fix for FetchContent
+    GIT_REPOSITORY https://github.com/thestk/rtaudio.git
+    GIT_TAG        40e0d8140f14acd8552d2dc4f42dcc853274a12c
     GIT_PROGRESS TRUE
 )
 FetchContent_MakeAvailable(RtAudio)
@@ -27,7 +27,7 @@ set(RTMIDI_BUILD_TESTING OFF)
 FetchContent_Declare(
     RtMidi
     GIT_REPOSITORY https://github.com/thestk/rtmidi.git
-    GIT_TAG        6.0.0
+    GIT_TAG        ab1aca5153379e52e97b85b998b66b61619b7958
     GIT_PROGRESS TRUE
 )
 FetchContent_MakeAvailable(RtMidi)
@@ -36,7 +36,7 @@ FetchContent_MakeAvailable(RtMidi)
 FetchContent_Declare(
     clap
     GIT_REPOSITORY https://github.com/free-audio/clap.git
-    GIT_TAG 1.2.1
+    GIT_TAG main
     GIT_PROGRESS TRUE
 )
 FetchContent_MakeAvailable(clap)
@@ -51,11 +51,13 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(clap-helpers)
 
 
-FetchContent_Declare(
-   Qt6
-   URL      https://download.qt.io/official_releases/qt/6.7/6.7.2/single/qt-everywhere-src-6.7.2.tar.xz
-   URL_HASH MD5=06d35b47349c7c0a45710daad359e07b
-)
+# FetchContent_Declare(
+#     Qt6
+# #    URL      https://download.qt.io/official_releases/qt/6.7/6.7.2/single/qt-everywhere-src-6.7.2.tar.xz
+# #    URL_HASH MD5=06d35b47349c7c0a45710daad359e07b
+#     URL      https://download.qt.io/official_releases/qt/6.9/6.9.1/single/qt-everywhere-src-6.9.1.tar.xz
+#     URL_HASH MD5=96dd62d709cc6bd626750ef41777cf2f
+# )
 
 # We try to remove as much as possible, but some of these can break compilation if set to OFF,
 # and which ones could even change with different Qt versions
@@ -83,15 +85,16 @@ set(QT_FEATURE_doubleconversion ON)
 set(QT_FEATURE_androiddeployqt  OFF)
 set(QT_FEATURE_dbus             OFF)
 set(QT_DEBUG_FIND_PACKAGE       ON)
+set(ENV{MACOSX_DEPLOYMENT_TARGET} 12.0) # this didn't work #FIXME
 
-FetchContent_MakeAvailable(Qt6)
+# FetchContent_MakeAvailable(Qt6)
 
 
 # We need to build the basic tools (mainly `moc`) first or else Qt's modules compilation fails
-if (NOT EXISTS "${CMAKE_BINARY_DIR}/_deps/qt6-build/libexec/moc")
-    execute_process(COMMAND ${CMAKE_COMMAND} --build "${CMAKE_BINARY_DIR}/_deps/qt6-build" --parallel)
-endif()
+# if (NOT EXISTS "${CMAKE_BINARY_DIR}/_deps/qt6-build/libexec/moc")
+#     execute_process(COMMAND ${CMAKE_COMMAND} --build "${CMAKE_BINARY_DIR}/_deps/qt6-build" --parallel)
+# endif()
 
-# this is so the Qt modules can find and use the basic tools
-list(APPEND CMAKE_PREFIX_PATH "${CMAKE_BINARY_DIR}/_deps/qt6-build/lib/cmake/")
+# # this is so the Qt modules can find and use the basic tools
+# list(APPEND CMAKE_PREFIX_PATH "${CMAKE_BINARY_DIR}/_deps/qt6-build/lib/cmake/")
 
