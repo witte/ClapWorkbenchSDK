@@ -2,7 +2,7 @@ name: mac
 
 on:
   push:
-    branches: [ main, dev ]
+    tags: "*"
 
 jobs:
   build:
@@ -10,23 +10,27 @@ jobs:
     
     steps:
       - uses: actions/checkout@v4
-
-      - name: setup dependencies
-        run: brew install ninja
       
       - name: configure
-        run: cmake . -B build -GNinja -DCMAKE_BUILD_TYPE=Release 
+        run: cmake . -Bbuild -GNinja -DCMAKE_BUILD_TYPE=Release 
       
       - name: build
         run: cmake --build build --parallel
 
       - name: install
-        run: cmake --install build
+        run: cmake --build build --target package
 
-      - name: 'upload artifact (MacOS)'
-        if: runner.os == 'MacOS'
-        uses: actions/upload-artifact@v4
+      # - name: 'upload artifact (MacOS)'
+      #   if: runner.os == 'MacOS'
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: ClapWorkbenchSDK (MacOS)
+      #     path: build/_install
+      #     if-no-files-found: error
+
+      - name: Upload to GitHub Release
+        uses: softprops/action-gh-release@v2
         with:
-          name: ClapWorkbenchSDK (MacOS)
-          path: build/_install
-          if-no-files-found: error
+          files: "build/*.tar.gz"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
