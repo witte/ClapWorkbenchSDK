@@ -2,11 +2,12 @@ name: mac
 
 on:
   push:
+    branches: "*"
     tags: "*"
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: [macos-latest]
     
     steps:
       - uses: actions/checkout@v4
@@ -20,15 +21,16 @@ jobs:
       - name: install
         run: cmake --build build --target package
 
-      # - name: 'upload artifact (MacOS)'
-      #   if: runner.os == 'MacOS'
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: ClapWorkbenchSDK (MacOS)
-      #     path: build/_install
-      #     if-no-files-found: error
+      - name: 'upload artifact'
+        if: github.ref_type != 'tag'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ClapWorkbenchSDK
+          path: "build/*.tar.gz"
+          if-no-files-found: error
 
       - name: Upload to GitHub Release
+        if: github.ref_type == 'tag'
         uses: softprops/action-gh-release@v2
         with:
           files: "build/*.tar.gz"
