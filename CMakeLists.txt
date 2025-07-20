@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.25)
 set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/__deps CACHE STRING "")
 set(CMAKE_PREFIX_PATH    ${CMAKE_INSTALL_PREFIX}    CACHE STRING "")
 
+# TODO: setup version from git tag or branch name + date
 project(ClapWorkbenchSDK VERSION 0.0.1)
 
 include(FetchContent)
@@ -52,15 +53,15 @@ FetchContent_MakeAvailable(clap-helpers)
 
 
 # We try to remove as much as possible, but some of these can break compilation if set to OFF,
-# and which ones could even change with different Qt versions
+# and the breaking ones could even change with different Qt versions
 set(QT_BUILD_SUBMODULES "qtbase;qtshadertools;qtdeclarative")
 set(BUILD_SHARED_LIBS        OFF)
 set(QT_FEATURE_release       ON)
 set(QT_FEATURE_optimize_full ON)
 
-# set(FEATURE_ltcg          OFF)
-#set(QT_FEATURE_settings      OFF)
-set(QT_FEATURE_widgets       OFF)
+# set(FEATURE_ltcg            OFF)
+# set(QT_FEATURE_settings     OFF)
+set(QT_FEATURE_widgets      OFF)
 # set(QT_FEATURE_network      OFF)
 set(QT_FEATURE_printsupport OFF)
 set(QT_FEATURE_sql          OFF)
@@ -77,16 +78,12 @@ set(QT_FEATURE_doubleconversion ON)
 set(QT_FEATURE_androiddeployqt  OFF)
 set(QT_FEATURE_dbus             OFF)
 set(QT_DEBUG_FIND_PACKAGE       ON)
-set(ENV{MACOSX_DEPLOYMENT_TARGET} 12.0) # this didn't work #FIXME
 FetchContent_Declare(
     Qt6
-#    URL      https://download.qt.io/official_releases/qt/6.7/6.7.2/single/qt-everywhere-src-6.7.2.tar.xz
-#    URL_HASH MD5=06d35b47349c7c0a45710daad359e07b
     URL      https://download.qt.io/official_releases/qt/6.9/6.9.1/single/qt-everywhere-src-6.9.1.tar.xz
     URL_HASH MD5=96dd62d709cc6bd626750ef41777cf2f
 )
 FetchContent_MakeAvailable(Qt6)
-
 
 # We need to build the basic tools (mainly `moc`) first or else Qt's modules compilation fails
 if (NOT EXISTS "${CMAKE_BINARY_DIR}/_deps/qt6-build/libexec/moc")
