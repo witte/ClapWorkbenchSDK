@@ -78,20 +78,20 @@ set(QT_FEATURE_androiddeployqt  OFF)
 set(QT_FEATURE_dbus             OFF)
 set(QT_DEBUG_FIND_PACKAGE       ON)
 set(ENV{MACOSX_DEPLOYMENT_TARGET} 12.0) # this didn't work #FIXME
-# FetchContent_Declare(
-#     Qt6
-# #    URL      https://download.qt.io/official_releases/qt/6.7/6.7.2/single/qt-everywhere-src-6.7.2.tar.xz
-# #    URL_HASH MD5=06d35b47349c7c0a45710daad359e07b
-#     URL      https://download.qt.io/official_releases/qt/6.9/6.9.1/single/qt-everywhere-src-6.9.1.tar.xz
-#     URL_HASH MD5=96dd62d709cc6bd626750ef41777cf2f
-# )
-# FetchContent_MakeAvailable(Qt6)
+FetchContent_Declare(
+    Qt6
+#    URL      https://download.qt.io/official_releases/qt/6.7/6.7.2/single/qt-everywhere-src-6.7.2.tar.xz
+#    URL_HASH MD5=06d35b47349c7c0a45710daad359e07b
+    URL      https://download.qt.io/official_releases/qt/6.9/6.9.1/single/qt-everywhere-src-6.9.1.tar.xz
+    URL_HASH MD5=96dd62d709cc6bd626750ef41777cf2f
+)
+FetchContent_MakeAvailable(Qt6)
 
 
 # We need to build the basic tools (mainly `moc`) first or else Qt's modules compilation fails
-# if (NOT EXISTS "${CMAKE_BINARY_DIR}/_deps/qt6-build/libexec/moc")
-#     execute_process(COMMAND ${CMAKE_COMMAND} --build "${CMAKE_BINARY_DIR}/_deps/qt6-build" --parallel)
-# endif()
+if (NOT EXISTS "${CMAKE_BINARY_DIR}/_deps/qt6-build/libexec/moc")
+    execute_process(COMMAND ${CMAKE_COMMAND} --build "${CMAKE_BINARY_DIR}/_deps/qt6-build" --parallel)
+endif()
 
 # this is so the Qt modules can find and use the basic tools
 list(APPEND CMAKE_PREFIX_PATH "${CMAKE_BINARY_DIR}/_deps/qt6-build/lib/cmake/")
