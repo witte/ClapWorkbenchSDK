@@ -1,10 +1,16 @@
-cmake_minimum_required(VERSION 3.25)
+cmake_minimum_required(VERSION 4.0)
 
 set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/__deps CACHE STRING "")
 set(CMAKE_PREFIX_PATH    ${CMAKE_INSTALL_PREFIX}    CACHE STRING "")
 
 # TODO: setup version from git tag or branch name + date
-project(ClapWorkbenchSDK VERSION 0.0.1)
+project(ClapWorkbenchSDK VERSION 0.0.2)
+
+
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_OSX_DEPLOYMENT_TARGET 11.0)
+
 
 include(FetchContent)
 set(FETCHCONTENT_QUIET OFF) # to show download progress
@@ -16,7 +22,7 @@ set(RTAUDIO_BUILD_TESTING OFF)
 FetchContent_Declare(
     RtAudio
     GIT_REPOSITORY  https://github.com/thestk/rtaudio.git
-    GIT_TAG         40e0d8140f14acd8552d2dc4f42dcc853274a12c
+    GIT_TAG         409636b5dcad3054ae5a9e85014bba3861b8edab # Nov 25, 2025
     GIT_PROGRESS    TRUE
 )
 FetchContent_MakeAvailable(RtAudio)
@@ -28,7 +34,7 @@ set(RTMIDI_BUILD_TESTING OFF)
 FetchContent_Declare(
     RtMidi
     GIT_REPOSITORY  https://github.com/thestk/rtmidi.git
-    GIT_TAG         ab1aca5153379e52e97b85b998b66b61619b7958
+    GIT_TAG         a3233c22949342f6697681e2cf2403e27fcf0c9e # Nov 27, 2025
     GIT_PROGRESS    TRUE
 )
 FetchContent_MakeAvailable(RtMidi)
@@ -37,7 +43,7 @@ FetchContent_MakeAvailable(RtMidi)
 FetchContent_Declare(
     clap
     GIT_REPOSITORY  https://github.com/free-audio/clap.git
-    GIT_TAG         main
+    GIT_TAG         1.2.7
     GIT_PROGRESS    TRUE
 )
 FetchContent_MakeAvailable(clap)
@@ -46,7 +52,7 @@ FetchContent_MakeAvailable(clap)
 FetchContent_Declare(
     clap-helpers
     GIT_REPOSITORY  https://github.com/free-audio/clap-helpers.git
-    GIT_TAG         main
+    GIT_TAG         a61bcdf0ecc2c8db1e80bfe8bf9cb7e8d9fd2bbc # Nov 28, 2025
     GIT_PROGRESS    TRUE
 )
 FetchContent_MakeAvailable(clap-helpers)
@@ -80,8 +86,8 @@ set(QT_FEATURE_dbus             OFF)
 set(QT_DEBUG_FIND_PACKAGE       ON)
 FetchContent_Declare(
     Qt6
-    URL      https://download.qt.io/official_releases/qt/6.9/6.9.1/single/qt-everywhere-src-6.9.1.tar.xz
-    URL_HASH MD5=96dd62d709cc6bd626750ef41777cf2f
+    URL      https://download.qt.io/official_releases/qt/6.10/6.10.2/single/qt-everywhere-src-6.10.2.tar.xz
+    URL_HASH MD5=c888eeca204d8ee144d9c57c2df9f8f4
 )
 FetchContent_MakeAvailable(Qt6)
 
