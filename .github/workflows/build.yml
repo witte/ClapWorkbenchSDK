@@ -47,13 +47,13 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ClapWorkbenchSDK-${{ matrix.name }}
-          path: ${{ matrix.buildFolder }}/*.tar.gz
+          path: "${{ matrix.buildFolder }}/*.tar.gz"
           if-no-files-found: error
 
       - name: Upload to GitHub Release
         if: github.ref_type == 'tag'
         uses: softprops/action-gh-release@v2
         with:
-          files: ${{ matrix.buildFolder }}/*.tar.gz
+          files: "${{ matrix.buildFolder }}/*.tar.gz"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

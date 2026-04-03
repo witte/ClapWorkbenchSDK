@@ -10,16 +10,14 @@
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/__build",
       "cacheVariables": {
-        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "CMAKE_BUILD_TYPE": "Release"
       }
     },
     {
       "name": "windows-ci",
-      "generator": "Ninja",
-      "binaryDir": "D:/__b",
-      "cacheVariables": {
-        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
-      }
+      "inherits": "default",
+      "binaryDir": "D:/__b"
     }
   ],
   "buildPresets": [
