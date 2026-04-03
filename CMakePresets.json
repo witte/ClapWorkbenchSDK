@@ -18,7 +18,8 @@
       "generator": "Ninja",
       "binaryDir": "D:/__b",
       "cacheVariables": {
-        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "CMAKE_GENERATOR_PLATFORM": "x64"
       }
     }
   ],

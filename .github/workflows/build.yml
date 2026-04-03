@@ -18,6 +18,7 @@ jobs:
             name: windows
             configurePreset: windows-ci
             buildPreset: windows-ci
+            buildFolder: D:/__b
 
     name: Build on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
@@ -46,13 +47,13 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ClapWorkbenchSDK-${{ matrix.name }}
-          path: "build/*.tar.gz"
+          path: ${{ matrix.buildFolder }}/*.tar.gz
           if-no-files-found: error
 
       - name: Upload to GitHub Release
         if: github.ref_type == 'tag'
         uses: softprops/action-gh-release@v2
         with:
-          files: "build/*.tar.gz"
+          files: ${{ matrix.buildFolder }}/*.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
